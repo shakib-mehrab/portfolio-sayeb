@@ -1,0 +1,156 @@
+/* Sayeb's Universe: theme tokens. Night is the default; day is a warm dawn sky. */
+:root,
+:root[data-theme='night'] {
+  color-scheme: dark;
+  --sp-bg: #060818;
+  --sp-bg-2: #0b1030;
+  --sp-surface: rgba(22, 28, 66, 0.62);
+  --sp-surface-solid: #131a3d;
+  --sp-surface-2: rgba(255, 255, 255, 0.06);
+  --sp-line: rgba(165, 180, 255, 0.18);
+  --sp-line-strong: rgba(165, 180, 255, 0.35);
+  --sp-text: #eef0ff;
+  --sp-muted: #a6acd8;
+  --sp-gold: #ffc93c;
+  --sp-gold-ink: #1a1200;
+  --sp-violet: #9b7bff;
+  --sp-pink: #ff7aa2;
+  --sp-cyan: #4fd8f0;
+  --sp-green: #4ade80;
+  --sp-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.7);
+  --sp-glow: 0.9;
+  --sp-stars: 1;
+  --sp-nebula-1: rgba(124, 92, 255, 0.22);
+  --sp-nebula-2: rgba(255, 122, 162, 0.12);
+  --sp-nebula-3: rgba(79, 216, 240, 0.1);
+}
+
+:root[data-theme='day'] {
+  color-scheme: light;
+  --sp-bg: #fff6ea;
+  --sp-bg-2: #fdebd3;
+  --sp-surface: rgba(255, 255, 255, 0.72);
+  --sp-surface-solid: #ffffff;
+  --sp-surface-2: rgba(80, 50, 20, 0.05);
+  --sp-line: rgba(70, 45, 20, 0.14);
+  --sp-line-strong: rgba(70, 45, 20, 0.28);
+  --sp-text: #1f1633;
+  --sp-muted: #625a78;
+  --sp-gold: #d97706;
+  --sp-gold-ink: #ffffff;
+  --sp-violet: #6d4aff;
+  --sp-pink: #e5487a;
+  --sp-cyan: #0891b2;
+  --sp-green: #16a34a;
+  --sp-shadow: 0 20px 50px -24px rgba(120, 70, 20, 0.35);
+  --sp-glow: 0.45;
+  --sp-stars: 0;
+  --sp-nebula-1: rgba(255, 186, 90, 0.35);
+  --sp-nebula-2: rgba(255, 140, 170, 0.18);
+  --sp-nebula-3: rgba(140, 200, 255, 0.25);
+}
+
+html {
+  background: var(--sp-bg);
+}
+
+body {
+  background: var(--sp-bg) !important;
+  color: var(--sp-text) !important;
+  transition: background-color 0.6s ease, color 0.6s ease;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--sp-bg) !important;
+  border-left: 0 !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--sp-line-strong) !important;
+  border: 3px solid var(--sp-bg) !important;
+}
+
+::selection {
+  background: var(--sp-gold);
+  color: var(--sp-gold-ink);
+}
+
+.font-display {
+  font-family: 'Bricolage Grotesque', sans-serif;
+}
+
+.font-mono-space {
+  font-family: 'Space Mono', ui-monospace, monospace;
+}
+
+.sp-card {
+  background: var(--sp-surface);
+  border: 1px solid var(--sp-line);
+  border-radius: 1.75rem;
+  box-shadow: var(--sp-shadow);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.sp-focus:focus-visible {
+  outline: 3px solid var(--sp-gold);
+  outline-offset: 3px;
+}
+
+/* Orbits */
+@keyframes sp-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.sp-orbit {
+  animation: sp-spin var(--orbit-duration, 40s) linear infinite;
+}
+
+.sp-orbit-counter {
+  animation: sp-spin var(--orbit-duration, 40s) linear infinite reverse;
+}
+
+.sp-orbit-group:hover .sp-orbit,
+.sp-orbit-group:hover .sp-orbit-counter {
+  animation-play-state: paused;
+}
+
+@keyframes sp-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.sp-marquee {
+  animation: sp-marquee 35s linear infinite;
+}
+
+@keyframes sp-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: var(--sp-glow);
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: calc(var(--sp-glow) * 0.7);
+  }
+}
+
+.sp-pulse {
+  animation: sp-pulse 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .sp-orbit,
+  .sp-orbit-counter,
+  .sp-marquee,
+  .sp-pulse {
+    animation: none !important;
+  }
+}

@@ -1,141 +1,71 @@
 import { motion } from 'motion/react';
 import { portfolioData } from '../data';
+import { SectionHeader } from './space/SectionHeader';
 
 export function HobbiesSection() {
   const { hobbies } = portfolioData;
 
   return (
-    <section id="hobbies" className="relative py-20 px-4 overflow-hidden">
-      {/* Background Decorations */}
-      <div className="absolute top-20 left-10 text-6xl opacity-10 animate-spin-slow">🌟</div>
-      <div className="absolute bottom-20 right-10 text-6xl opacity-10 animate-bounce">🎨</div>
+    <section id="hobbies" className="relative py-24 md:py-32 px-4">
+      <div className="max-w-6xl mx-auto">
+        <SectionHeader
+          index={hobbies.index}
+          kicker={hobbies.kicker}
+          title={hobbies.title}
+          subtitle={hobbies.subtitle}
+          color="var(--sp-pink)"
+        />
 
-      <div className="max-w-7xl mx-auto">
-        {/* Section Title */}
-        <motion.div
-          initial={{ scale: 0, rotate: -10 }}
-          animate={{ scale: 1, rotate: 0 }}
-          transition={{ type: 'spring', duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <h2 
-            className="inline-block px-10 py-5 bg-[#FB7185] text-white border-4 border-black rounded-[2rem] shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] transform rotate-2"
-            style={{ 
-              fontFamily: "'Bricolage Grotesque', sans-serif",
-              fontSize: 'clamp(2rem, 4vw, 3.5rem)',
-              fontWeight: 800,
-            }}
-          >
-            {hobbies.title}
-          </h2>
-        </motion.div>
-
-        {/* Hobbies Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {hobbies.cards.map((hobby, index) => (
+        <div className="flex flex-wrap justify-center gap-x-6 gap-y-12 md:gap-x-10">
+          {hobbies.items.map((hobby, i) => (
             <motion.div
               key={hobby.title}
-              initial={{ y: 100, opacity: 0, rotate: -5 }}
-              animate={{ y: 0, opacity: 1, rotate: 0 }}
-              transition={{ delay: index * 0.1, duration: 0.6 }}
-              whileHover={{ 
-                y: -10, 
-                rotate: Math.random() > 0.5 ? 2 : -2,
-                scale: 1.05,
-              }}
-              className="group cursor-pointer"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ delay: (i % 4) * 0.08, duration: 0.6 }}
+              // Stagger planets up and down so the row feels like an orbit, not a grid.
+              className={`group w-[150px] sm:w-[190px] text-center ${i % 2 ? 'md:translate-y-10' : ''}`}
             >
-              <div 
-                className="relative h-full p-8 rounded-[2rem] border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] group-hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] transition-all duration-300"
-                style={{ backgroundColor: hobby.color }}
-              >
-                <div className="mb-6 overflow-hidden rounded-[1.5rem] border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-white">
-                  <img
-                    src={hobby.image}
-                    alt={hobby.title}
-                    className="h-36 w-full object-cover"
+              <div className="relative mx-auto w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] mb-5">
+                <div
+                  className="absolute -inset-4 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{ background: `radial-gradient(circle, ${hobby.color}55, transparent 70%)` }}
+                />
+                <motion.div
+                  whileHover={{ scale: 1.08, rotate: 8 }}
+                  transition={{ type: 'spring', stiffness: 200 }}
+                  className="relative w-full h-full rounded-full flex items-center justify-center"
+                  style={{
+                    background: `radial-gradient(circle at 32% 28%, rgba(255,255,255,0.75), ${hobby.color} 42%, color-mix(in srgb, ${hobby.color} 45%, #050716) 100%)`,
+                    boxShadow: `0 0 40px -6px ${hobby.color}, inset -14px -18px 30px rgba(0,0,0,0.35)`,
+                  }}
+                >
+                  {/* Surface bands */}
+                  <div
+                    className="absolute inset-0 rounded-full opacity-25"
+                    style={{ background: 'repeating-linear-gradient(-20deg, transparent 0 14px, rgba(255,255,255,0.35) 14px 18px)' }}
                   />
-                </div>
-
-                {/* Icon Circle */}
-                <motion.div
-                  whileHover={{ rotate: 360, scale: 1.2 }}
-                  transition={{ duration: 0.6 }}
-                  className="mb-6 inline-block absolute top-28 left-8"
-                >
-                  <div className="relative w-20 h-20 bg-white rounded-full border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center">
-                    <span className="text-4xl">{hobby.emoji}</span>
-                  </div>
+                  <span className="relative text-5xl sm:text-6xl drop-shadow">{hobby.emoji}</span>
                 </motion.div>
-
-                {/* Title */}
-                <h3 
-                  className="mb-2 text-white"
-                  style={{ 
-                    fontFamily: "'Bricolage Grotesque', sans-serif",
-                    fontSize: '1.75rem',
-                    fontWeight: 700,
-                  }}
-                >
-                  {hobby.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-white/90 text-lg">
-                  {hobby.description}
-                </p>
-
-                {/* Decorative Element */}
-                <motion.div
-                  animate={{ 
-                    rotate: [0, 5, -5, 0],
-                    scale: [1, 1.1, 1],
-                  }}
-                  transition={{ 
-                    duration: 2, 
-                    repeat: Infinity,
-                    delay: index * 0.2,
-                  }}
-                  className="absolute top-4 right-4 text-2xl"
-                >
-                  ✨
-                </motion.div>
+                {hobby.ring && (
+                  <div
+                    aria-hidden
+                    className="absolute left-1/2 top-1/2 w-[160%] h-[34%] -translate-x-1/2 -translate-y-1/2 rounded-[50%] pointer-events-none"
+                    style={{ border: `2px solid ${hobby.color}`, opacity: 0.6, transform: 'translate(-50%, -50%) rotate(-14deg)' }}
+                  />
+                )}
               </div>
+              <h3 className="font-display text-lg sm:text-xl" style={{ fontWeight: 700 }}>
+                {hobby.title}
+              </h3>
+              <p className="text-sm mt-1" style={{ color: 'var(--sp-muted)' }}>
+                {hobby.description}
+              </p>
             </motion.div>
           ))}
         </div>
-
-        {/* Floating Badges */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="flex justify-center gap-4 mt-16 flex-wrap"
-        >
-          {hobbies.badges.map((badge, index) => (
-            <motion.div
-              key={badge}
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 1 + index * 0.1, type: 'spring' }}
-              whileHover={{ rotate: [0, -5, 5, 0], scale: 1.1 }}
-              className="px-6 py-3 bg-white border-3 border-black rounded-full shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
-              style={{ fontWeight: 600, fontSize: '1.1rem' }}
-            >
-              {badge} ⭐
-            </motion.div>
-          ))}
-        </motion.div>
       </div>
-
-      <style>{`
-        @keyframes spin-slow {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-        .animate-spin-slow {
-          animation: spin-slow 10s linear infinite;
-        }
-      `}</style>
     </section>
   );
 }
