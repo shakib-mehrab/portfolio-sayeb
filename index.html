@@ -5,10 +5,15 @@
       
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Tasnim Sayeb</title>
-      <meta name="description" content="An interactive storytelling portfolio showcasing a young student&#39;s passions and dreams through playful animations and vibrant, engaging visuals." />
+      <title>Sayeb's Universe</title>
+      <meta name="description" content="Tasnim Al Hossain Sayeb: Class 7 student, explorer, and design contributor to the Ad-Deen Android app." />
       <meta name="robots" content="noindex, nofollow" />
-      <style>html, body { height: 100%; margin: 0; } #root { height: 100%; }</style>
+      <meta name="theme-color" content="#060818" />
+      <style>html, body { margin: 0; background: #060818; } html[data-theme="day"], html[data-theme="day"] body { background: #fff6ea; }</style>
+      <script>
+        // Apply the saved sky before React loads so a day-sky visit doesn't flash dark.
+        try { if (localStorage.getItem('sayeb-theme') === 'day') document.documentElement.dataset.theme = 'day'; } catch (e) {}
+      </script>
       
     </head>
 

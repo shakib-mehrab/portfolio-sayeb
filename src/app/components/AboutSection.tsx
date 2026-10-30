@@ -1,166 +1,121 @@
 import { motion } from 'motion/react';
-import { Sparkles } from 'lucide-react';
 import { portfolioData } from '../data';
+import { SectionHeader } from './space/SectionHeader';
 
 export function AboutSection() {
   const { about } = portfolioData;
 
   return (
-    <section id="about" className="relative py-20 px-4 overflow-hidden">
-      {/* Decorative Elements */}
-      <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-        className="absolute top-10 right-10 text-6xl opacity-20"
-      >
-        📝
-      </motion.div>
-      <motion.div
-        animate={{ y: [0, -20, 0] }}
-        transition={{ duration: 3, repeat: Infinity }}
-        className="absolute bottom-20 left-10 text-5xl opacity-20"
-      >
-        ✏️
-      </motion.div>
+    <section id="about" className="relative py-24 md:py-32 px-4">
+      <div className="max-w-6xl mx-auto">
+        <SectionHeader index={about.index} kicker={about.kicker} title={about.title} color="var(--sp-cyan)" />
 
-      <div className="max-w-4xl mx-auto">
-        {/* Section Title */}
-        <motion.div
-          initial={{ x: -100, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.6 }}
-          className="mb-12 text-center"
-        >
-          <div className="inline-block relative">
-            <h2 
-              className="relative inline-block px-8 py-4 bg-[#8B5CF6] text-white border-4 border-black rounded-3xl shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transform -rotate-2"
-              style={{ 
-                fontFamily: "'Bricolage Grotesque', sans-serif",
-                fontSize: 'clamp(2rem, 4vw, 3.5rem)',
-                fontWeight: 800,
-              }}
+        <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-16 items-center">
+          {/* Porthole photo */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.8 }}
+            className="relative mx-auto w-full max-w-[380px] aspect-square"
+          >
+            <div
+              className="absolute inset-0 rounded-full"
+              style={{ border: '1px dashed var(--sp-line-strong)', transform: 'scale(1.12)' }}
+            />
+            <div
+              className="absolute inset-0 rounded-full p-3"
+              style={{ background: 'linear-gradient(140deg, var(--sp-cyan), var(--sp-violet))' }}
             >
-              {about.title}
-            </h2>
-            <motion.div
-              animate={{ rotate: [0, 10, -10, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="absolute -top-8 -right-8 text-4xl"
-            >
-              <Sparkles className="w-10 h-10 text-[#FACC15]" fill="#FACC15" />
-            </motion.div>
-          </div>
-        </motion.div>
-
-        {/* About Card */}
-        <motion.div
-          initial={{ y: 100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8 }}
-          className="relative"
-        >
-          {/* Notebook Lines Background */}
-          <div className="absolute inset-0 rounded-[2.5rem] border-4 border-black bg-white overflow-hidden">
-            <div className="absolute inset-0" style={{
-              backgroundImage: 'repeating-linear-gradient(transparent, transparent 35px, #E5E7EB 35px, #E5E7EB 37px)',
-              opacity: 0.3,
-            }} />
-            {/* Red vertical line like notebook */}
-            <div className="absolute left-12 top-0 bottom-0 w-1 bg-red-400 opacity-30" />
-          </div>
-
-          <div className="relative bg-white/90 backdrop-blur-sm rounded-[2.5rem] border-4 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] p-8 md:p-12 transform hover:shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] transition-all">
-            <div className="flex flex-col md:flex-row items-start gap-8">
-              <motion.div
-                whileHover={{ rotate: 5, scale: 1.05 }}
-                className="flex-shrink-0"
-              >
-                <div className="relative w-32 h-32 md:w-40 md:h-40">
-                  <div className="absolute inset-0 bg-[#22C55E] rounded-3xl border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transform rotate-3" />
-                  <div className="relative w-full h-full bg-white rounded-3xl border-4 border-black overflow-hidden">
-                    <img
-                      src={about.profileImageUrl}
-                      alt={about.profileImageAlt}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                </div>
-              </motion.div>
-
-              <div className="flex-1">
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.3 }}
-                  className="text-lg md:text-xl leading-relaxed mb-6"
-                  style={{ fontWeight: 400, lineHeight: 1.8 }}
-                >
-                  {about.intro} <span className="inline-block px-3 py-1 bg-[#FACC15] border-2 border-black rounded-lg font-semibold">{about.highlightedName}</span>. 
-                  I study in <span className="inline-block px-3 py-1 bg-[#4F7DF7] text-white border-2 border-black rounded-lg font-semibold">{about.classLabel}</span> at 
-                   {about.schoolName}.
-                </motion.p>
-
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.5 }}
-                  className="text-lg md:text-xl leading-relaxed"
-                  style={{ fontWeight: 400, lineHeight: 1.8 }}
-                >
-                  {about.curiosityParagraph} 
-                  Every day is a <span className="inline-block px-3 py-1 bg-[#FB7185] text-white border-2 border-black rounded-lg font-semibold">new adventure</span> for me! 🚀
-                </motion.p>
-
-                {/* Decorative Stickers */}
-                <div className="flex gap-4 mt-8 flex-wrap">
-                  {about.stickers.map((emoji, index) => (
-                    <motion.div
-                      key={emoji}
-                      initial={{ scale: 0, rotate: -180 }}
-                      animate={{ scale: 1, rotate: 0 }}
-                      transition={{ delay: 0.7 + index * 0.1, type: 'spring' }}
-                      whileHover={{ scale: 1.3, rotate: 15 }}
-                      className="text-4xl cursor-pointer"
-                    >
-                      {emoji}
-                    </motion.div>
-                  ))}
-                </div>
+              <div className="w-full h-full rounded-full overflow-hidden" style={{ boxShadow: 'inset 0 0 40px rgba(0,0,0,0.5)' }}>
+                <img src={about.profileImageUrl} alt={about.profileImageAlt} className="w-full h-full object-cover" />
               </div>
             </div>
-          </div>
-        </motion.div>
+            {/* Porthole bolts */}
+            {[0, 60, 120, 180, 240, 300].map((deg) => (
+              <span
+                key={deg}
+                aria-hidden
+                className="absolute w-2.5 h-2.5 -ml-[5px] -mt-[5px] rounded-full"
+                style={{
+                  left: `${50 + 48.5 * Math.sin((deg * Math.PI) / 180)}%`,
+                  top: `${50 - 48.5 * Math.cos((deg * Math.PI) / 180)}%`,
+                  background: 'var(--sp-bg)',
+                  opacity: 0.7,
+                }}
+              />
+            ))}
+          </motion.div>
 
-        {/* Handwritten Arrow */}
-        <motion.div
-          initial={{ pathLength: 0, opacity: 0 }}
-          whileInView={{ pathLength: 1, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.5, delay: 0.5 }}
-          className="flex justify-center mt-12"
-        >
-          <svg width="100" height="100" viewBox="0 0 100 100" className="transform rotate-90">
-            <motion.path
-              d="M 20 20 Q 50 50 80 80"
-              stroke="#000"
-              strokeWidth="3"
-              fill="none"
-              strokeLinecap="round"
-              initial={{ pathLength: 0 }}
-              whileInView={{ pathLength: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, delay: 0.8 }}
-            />
-            <motion.polygon
-              points="80,70 90,80 80,90"
-              fill="#000"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 1.5 }}
-            />
-          </svg>
-        </motion.div>
+          {/* Story */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+          >
+            <p className="font-display mb-6" style={{ fontSize: 'clamp(1.5rem, 3vw, 2.1rem)', fontWeight: 700, lineHeight: 1.25 }}>
+              Hi! I'm <span style={{ color: 'var(--sp-gold)' }}>{about.name}</span>, a {about.classLabel} student at{' '}
+              {about.schoolName}.
+            </p>
+            {about.paragraphs.map((text) => (
+              <p key={text} className="text-lg mb-4" style={{ lineHeight: 1.8, color: 'var(--sp-muted)' }}>
+                {text}
+              </p>
+            ))}
+
+            <div className="grid grid-cols-3 gap-3 mt-8">
+              {about.facts.map((fact) => (
+                <div key={fact.label} className="sp-card p-4 text-center" style={{ borderRadius: '1.25rem' }}>
+                  <div className="font-display" style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 800, color: 'var(--sp-cyan)' }}>
+                    {fact.value}
+                  </div>
+                  <div className="font-mono-space text-[11px] uppercase tracking-widest mt-1" style={{ color: 'var(--sp-muted)' }}>
+                    {fact.label}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex flex-wrap gap-2 mt-6">
+              {about.traits.map((trait) => (
+                <span
+                  key={trait}
+                  className="px-4 py-1.5 rounded-full text-sm"
+                  style={{ border: '1px solid var(--sp-line-strong)', fontWeight: 600 }}
+                >
+                  ✦ {trait}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Captain's log: photo polaroids */}
+        <div className="mt-20">
+          <p className="font-mono-space text-xs uppercase tracking-[0.25em] mb-8 text-center" style={{ color: 'var(--sp-muted)' }}>
+            Captain's log · photos from Earth
+          </p>
+          <div className="flex flex-wrap justify-center gap-6 md:gap-10">
+            {about.log.map((photo, i) => (
+              <motion.figure
+                key={photo.caption}
+                initial={{ opacity: 0, y: 40, rotate: 0 }}
+                whileInView={{ opacity: 1, y: 0, rotate: [-4, 3, -2, 4][i % 4] }}
+                whileHover={{ rotate: 0, y: -8, scale: 1.03 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ delay: i * 0.12, type: 'spring', stiffness: 120 }}
+                className="w-[220px] md:w-[240px] p-3 pb-4 rounded-xl"
+                style={{ background: 'var(--sp-surface-solid)', boxShadow: 'var(--sp-shadow)', border: '1px solid var(--sp-line)' }}
+              >
+                <img src={photo.src} alt={photo.caption} className="w-full aspect-[4/5] object-cover rounded-lg" loading="lazy" />
+                <figcaption className="mt-3 text-center font-display" style={{ fontWeight: 600 }}>
+                  {photo.caption}
+                </figcaption>
+              </motion.figure>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
