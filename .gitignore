@@ -2,3 +2,4 @@ node_modules
 guidelines
 dist
 ATTRIBUTIONS.md
+.claude/launch.json
